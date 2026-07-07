@@ -433,23 +433,7 @@
     70% { transform: scale(1.05) rotate(1deg); opacity: 1; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
   }
- #photoGallery {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
 
-.gallery-photo {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 20px;
-    border: 3px solid #ff80c0;
-    box-shadow: 0 0 25px #ff40a0;
-}
 @keyframes pop{
     from{
         opacity:0;
@@ -540,41 +524,95 @@
     0% { transform: translate(0,0) scale(0); opacity: 1; }
     100% { transform: translate(var(--bx), var(--by)) scale(1); opacity: 0; }
   }
- /* MOBILE FIX */
-@media (max-width: 600px) {
+ #reveal {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#1a0533;
+    z-index:100;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:30px 15px;
+    overflow-y:auto;
+    gap:25px;
+}
 
-  #reveal {
-    justify-content: flex-start;
-    padding: 15px 10px;
-    gap: 15px;
-    overflow-y: auto;
-  }
+#reveal.active {
+    display:flex;
+}
 
-  #photoGallery {
+
+#photoGallery {
     display:flex;
     flex-direction:row;
-    gap:8px;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    width:100%;
 }
 
 .gallery-photo {
     width:45vw;
+    max-width:300px;
+    aspect-ratio:1 / 1;
+    object-fit:cover;
+    border-radius:20px;
+    border:3px solid #ff80c0;
+    box-shadow:0 0 30px #ff40a0;
+}
+
+
+@media(max-width:600px){
+
+    #photoGallery {
+        flex-direction:row;
+        gap:8px;
+    }
+
+    .gallery-photo {
+        width:45vw;
+        height:45vw;
+    }
+
+    .wish-text {
+        width:95%;
+        font-size:1rem;
+    }
+}
+
+
+.wish-text {
+    width:90%;
+    max-width:700px;
+    text-align:center;
+    color:#ffd6f0;
+    font-size:1.3rem;
+    line-height:1.6;
+}
+
+
+/* телефон */
+@media(max-width:600px){
+
+    #photoGallery {
+    display:flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    }
+
+   .gallery-photo {
+    width:45vw;
     height:45vw;
+    max-width:300px;
+    max-height:300px;}
+
+    .wish-text {
+        width:95%;
+        font-size:1rem;
+    }
 }
 
-  .wish-text {
-    width: 95%;
-    overflow-wrap: anywhere;
-    font-size: 1rem;
-    line-height: 1.5;
-    padding-bottom: 30px;
-    word-wrap: break-word;
-  }
-
-  .photo-frame {
-    width: 95vw;
-    height: auto;
-  }
-}
 </style>
 </head>
 <body>
@@ -647,15 +685,10 @@
 
 <!-- Reveal screen -->
 <div id="reveal">
-  <div class="photo-frame" id="photoFrame">
-    <div class="photo-placeholder" id="photoPlaceholder">
-      <span class="icon">💕</span>
-      <span>Тук ще се появи<br>вашата снимка!<br><br><small>Качи снимка с бутона горе вдясно<br>преди да духнеш свещичката</small></span>
-    </div>
    <div id="photoGallery">
-    <img class="gallery-photo" src="images/snimka1.png">
-    <img class="gallery-photo" src="images/snimka2.png">
-</div>
+     <img class="gallery-photo" src="images/snimka1.png">
+     <img class="gallery-photo" src="images/snimka2.png">
+   </div>
   <div class="wish-text" id="wishMsg">
     Честит рожден ден на най-добрата кака на света! 💖<br>
     Пожелавам ти да сбъднеш всичко, за което мечтаеш и се трудиш.<br>
@@ -828,9 +861,7 @@ song.play().catch(err => console.log(err));
         img.src = photo + "?v=" + Date.now();
         img.className = "gallery-photo";
 
-        img.onload = () => {
-            document.getElementById("photoPlaceholder").style.display = "none";
-        };
+        img.onload = () => {};
 
         gallery.appendChild(img);
     });
