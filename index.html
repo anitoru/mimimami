@@ -540,6 +540,41 @@
     0% { transform: translate(0,0) scale(0); opacity: 1; }
     100% { transform: translate(var(--bx), var(--by)) scale(1); opacity: 0; }
   }
+ /* MOBILE FIX */
+@media (max-width: 600px) {
+
+  #reveal {
+    justify-content: flex-start;
+    padding: 15px 10px;
+    gap: 15px;
+    overflow-y: auto;
+  }
+
+  #photoGallery {
+    display:flex;
+    flex-direction:row;
+    gap:8px;
+}
+
+.gallery-photo {
+    width:45vw;
+    height:45vw;
+}
+
+  .wish-text {
+    width: 95%;
+    overflow-wrap: anywhere;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding-bottom: 30px;
+    word-wrap: break-word;
+  }
+
+  .photo-frame {
+    width: 95vw;
+    height: auto;
+  }
+}
 </style>
 </head>
 <body>
