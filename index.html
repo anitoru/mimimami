@@ -394,7 +394,7 @@
   }
 
   /* ===== REVEAL SCREEN ===== */
-  #reveal {
+ #reveal {
     display: none;
     position: fixed;
     inset: 0;
@@ -402,19 +402,20 @@
     z-index: 100;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 24px;
-    padding: 24px;
+    justify-content: flex-start;
+    gap: 25px;
+    padding: 30px 15px;
+    overflow-y: auto;
     animation: fade-in 1.2s ease forwards;
-  }
+}
   #reveal.active { display: flex; }
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
 
-  .photo-frame {
-    width: min(340px, 90vw);
+ .photo-frame {
+    width: min(700px, 95vw);
     aspect-ratio: 4/3;
     border-radius: 16px;
     border: 3px solid #ff80c0;
@@ -432,21 +433,23 @@
     70% { transform: scale(1.05) rotate(1deg); opacity: 1; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
   }
- #photoGallery{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-top:20px;
-    flex-wrap:wrap;
+ #photoGallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.gallery-photo{
-    width:220px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-    animation:pop .8s ease;
+.gallery-photo {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 3px solid #ff80c0;
+    box-shadow: 0 0 25px #ff40a0;
 }
-
 @keyframes pop{
     from{
         opacity:0;
@@ -614,7 +617,10 @@
       <span class="icon">💕</span>
       <span>Тук ще се появи<br>вашата снимка!<br><br><small>Качи снимка с бутона горе вдясно<br>преди да духнеш свещичката</small></span>
     </div>
-   <div id="photoGallery"></div>
+   <div id="photoGallery">
+    <img class="gallery-photo" src="images/snimka1.png">
+    <img class="gallery-photo" src="images/snimka2.png">
+</div>
   <div class="wish-text" id="wishMsg">
     Честит рожден ден на най-добрата кака на света! 💖<br>
     Пожелавам ти да сбъднеш всичко, за което мечтаеш и се трудиш.<br>
