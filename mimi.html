@@ -432,6 +432,31 @@
     70% { transform: scale(1.05) rotate(1deg); opacity: 1; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
   }
+ #photoGallery{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.gallery-photo{
+    width:220px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    animation:pop .8s ease;
+}
+
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
 
   .photo-placeholder {
     display: flex;
@@ -589,8 +614,7 @@
       <span class="icon">💕</span>
       <span>Тук ще се появи<br>вашата снимка!<br><br><small>Качи снимка с бутона горе вдясно<br>преди да духнеш свещичката</small></span>
     </div>
-    <img id="revealPhoto" style="width:100%;height:100%;object-fit:cover;display:none;" alt="Our photo">
-  </div>
+   <div id="photoGallery"></div>
   <div class="wish-text" id="wishMsg">
     Честит рожден ден на най-добрата кака на света! 💖<br>
     Пожелавам ти да сбъднеш всичко, за което мечтаеш и се трудиш.<br>
@@ -628,8 +652,10 @@ makeFrosting(document.getElementById('frosting2'), 13);
 let blown = false;
 
 // Photo embedded
-let uploadedPhoto = "images/svetla-engineer.png";
-
+let uploadedPhotos = [
+    "images/1.jpeg",
+    "images/2.png"
+];
 // ===== MICROPHONE =====
 let audioCtx, analyser, micStream, animFrame;
 
@@ -752,15 +778,21 @@ song.play().catch(err => console.log(err));
   setTimeout(() => burst.remove(), 2000);
 
   // Show photo
-  if (uploadedPhoto) {
-    const img = document.getElementById("revealPhoto");
+ if (uploadedPhotos.length) {
+    const gallery = document.getElementById("photoGallery");
+    gallery.innerHTML = "";
 
-    img.onload = function () {
-        img.style.display = "block";
-        document.getElementById("photoPlaceholder").style.display = "none";
-    };
+    uploadedPhotos.forEach(photo => {
+        const img = document.createElement("img");
+        img.src = photo + "?v=" + Date.now();
+        img.className = "gallery-photo";
 
-    img.src = uploadedPhoto + "?v=" + Date.now();
+        img.onload = () => {
+            document.getElementById("photoPlaceholder").style.display = "none";
+        };
+
+        gallery.appendChild(img);
+    });
 }
   document.getElementById('reveal').classList.add('active');
 }
